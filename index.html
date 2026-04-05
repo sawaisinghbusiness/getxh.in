@@ -1,1 +1,808 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GetXH – From Content To Customers</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #111111;
+    --gray: #6B7280;
+    --border: #E5E7EB;
+    --blue: #2563EB;
+    --blue-light: #EFF6FF;
+    --bg-light: #F9FAFB;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--black);
+    background: var(--white);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--black);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+  .logo span { color: var(--blue); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--black); }
+  .nav-cta {
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .nav-cta:hover { background: #1d4ed8; }
+
+  /* ── SECTION WRAPPER ── */
+  .section { padding: 80px 24px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.25;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+  .section-sub {
+    font-size: 16px;
+    color: var(--gray);
+    max-width: 520px;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    background: var(--white);
+    padding: 80px 24px;
+    overflow: hidden;
+  }
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .hero-left { animation: fadeUp .7s ease both; }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray);
+    margin-bottom: 24px;
+  }
+  .hero-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
+  .hero-h1 {
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--black);
+    margin-bottom: 16px;
+  }
+  .hero-h1 .blue { color: var(--blue); }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--gray);
+    margin-bottom: 36px;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s, transform .15s;
+  }
+  .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+  .btn-secondary {
+    background: var(--white);
+    color: var(--black);
+    border: 1.5px solid var(--border);
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color .2s, transform .15s;
+  }
+  .btn-secondary:hover { border-color: #9CA3AF; transform: translateY(-1px); }
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .stat-item { display: flex; flex-direction: column; }
+  .stat-num { font-size: 22px; font-weight: 800; color: var(--black); letter-spacing: -0.5px; }
+  .stat-label { font-size: 13px; color: var(--gray); }
+
+  /* Hero right – cards */
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: fadeUp .7s .15s ease both;
+  }
+  .h-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.05);
+    transition: box-shadow .25s, transform .25s;
+  }
+  .h-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.09); transform: translateY(-2px); }
+  .h-card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .platform-icon {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .ig { background: #fce4ec; }
+  .rl { background: #ede7f6; }
+  .an { background: var(--blue-light); }
+  .h-card-title { font-size: 14px; font-weight: 700; color: var(--black); }
+  .h-card-sub { font-size: 12px; color: var(--gray); }
+  .h-card-body { display: flex; justify-content: space-between; align-items: flex-end; }
+  .metric-row { display: flex; gap: 20px; }
+  .metric { display: flex; flex-direction: column; }
+  .metric-val { font-size: 18px; font-weight: 800; color: var(--black); letter-spacing: -0.5px; }
+  .metric-key { font-size: 11px; color: var(--gray); font-weight: 500; }
+  .badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .badge-green { background: #dcfce7; color: #16a34a; }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-gray { background: var(--bg-light); color: var(--gray); }
+
+  /* Mini chart for analytics card */
+  .mini-bars { display: flex; gap: 4px; align-items: flex-end; height: 32px; margin-top: 14px; }
+  .mini-bar {
+    flex: 1;
+    border-radius: 3px 3px 0 0;
+    background: var(--border);
+    transition: background .2s;
+  }
+  .mini-bar.active { background: var(--blue); }
+  .h-card:hover .mini-bar.active { background: #1d4ed8; }
+
+  /* ── BRANDS ── */
+  #brands { background: var(--white); padding: 40px 24px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .brands-label {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 28px;
+  }
+  .brands-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .brand-name {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--border);
+    letter-spacing: -0.5px;
+    transition: color .2s;
+    cursor: default;
+  }
+  .brand-name:hover { color: #9CA3AF; }
+
+  /* ── WHAT WE DO ── */
+  #what { background: var(--bg-light); }
+  .what-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .what-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 26px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.04);
+    transition: box-shadow .25s, transform .25s;
+  }
+  .what-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.08); transform: translateY(-3px); }
+  .what-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: var(--blue-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+  .what-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--black); }
+  .what-card p { font-size: 14px; color: var(--gray); line-height: 1.65; }
+
+  /* ── HOW IT WORKS ── */
+  #how { background: var(--white); }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+    position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: calc(12.5% + 22px);
+    right: calc(12.5% + 22px);
+    height: 1px;
+    background: var(--border);
+  }
+  .step { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .step-num {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--blue);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+    background: var(--white);
+  }
+  .step h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--black); }
+  .step p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+  /* ── CASE STUDIES ── */
+  #cases { background: var(--bg-light); }
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .case-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 26px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.04);
+  }
+  .case-brand { font-size: 13px; font-weight: 700; color: var(--blue); margin-bottom: 6px; }
+  .case-result { font-size: 28px; font-weight: 800; color: var(--black); letter-spacing: -1px; margin-bottom: 4px; }
+  .case-desc { font-size: 14px; color: var(--gray); margin-bottom: 20px; line-height: 1.6; }
+  .case-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: var(--bg-light);
+    color: var(--gray);
+    border: 1px solid var(--border);
+  }
+
+  /* ── CREATORS ── */
+  #creators { background: var(--white); }
+  .creators-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-top: 48px;
+  }
+  .creator-card {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: box-shadow .25s, transform .25s;
+    background: var(--white);
+  }
+  .creator-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.08); transform: translateY(-3px); }
+  .creator-avatar {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--bg-light);
+    margin: 0 auto 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    border: 2px solid var(--border);
+  }
+  .creator-name { font-size: 14px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
+  .creator-niche { font-size: 12px; color: var(--gray); margin-bottom: 12px; }
+  .creator-stats { display: flex; justify-content: center; gap: 16px; }
+  .c-stat { display: flex; flex-direction: column; }
+  .c-val { font-size: 14px; font-weight: 700; color: var(--black); }
+  .c-key { font-size: 10px; color: var(--gray); font-weight: 500; }
+
+  /* ── CTA ── */
+  #cta { background: var(--blue-light); border-top: 1px solid #DBEAFE; border-bottom: 1px solid #DBEAFE; }
+  .cta-inner { text-align: center; }
+  .cta-inner .section-title { font-size: 40px; letter-spacing: -1px; }
+  .cta-inner .section-sub { margin: 0 auto 36px; font-size: 17px; }
+  .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--bg-light); border-top: 1px solid var(--border); padding: 60px 24px 32px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+  .footer-brand p { font-size: 14px; color: var(--gray); margin-top: 10px; max-width: 240px; line-height: 1.7; }
+  .footer-col h5 { font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 14px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul a { font-size: 14px; color: var(--gray); text-decoration: none; transition: color .2s; }
+  .footer-col ul a:hover { color: var(--black); }
+  .footer-bottom {
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom p { font-size: 13px; color: var(--gray); }
+  .footer-socials { display: flex; gap: 12px; }
+  .social-btn {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color .2s, transform .15s;
+    text-decoration: none;
+  }
+  .social-btn:hover { border-color: #9CA3AF; transform: translateY(-1px); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-h1 { font-size: 44px; }
+    .what-grid { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .steps::before { display: none; }
+    .cases-grid { grid-template-columns: 1fr 1fr; }
+    .creators-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .hero-h1 { font-size: 36px; letter-spacing: -1px; }
+    .nav-links { display: none; }
+    .what-grid, .steps, .cases-grid, .creators-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero-stats { flex-wrap: wrap; gap: 20px; }
+    .brands-logos { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#">Get<span>XH</span></a>
+    <ul class="nav-links">
+      <li><a href="#what">What We Do</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#cases">Case Studies</a></li>
+      <li><a href="#creators">Creators</a></li>
+    </ul>
+    <button class="nav-cta">Get Started</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag"><span class="dot"></span> 2,400+ Campaigns Delivered</div>
+      <h1 class="hero-h1">Get<span class="blue">XH</span></h1>
+      <p class="hero-sub">From Content To Customers</p>
+      <p style="font-size:16px;color:var(--gray);margin-bottom:36px;max-width:400px;line-height:1.7;">Connect brands with India's best creators. Drive real results — not just reach.</p>
+      <div class="hero-btns">
+        <button class="btn-primary">Start Campaign →</button>
+        <button class="btn-secondary">Join as Creator</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><span class="stat-num">12K+</span><span class="stat-label">Active Creators</span></div>
+        <div class="stat-item"><span class="stat-num">₹4.2Cr</span><span class="stat-label">Paid to Creators</span></div>
+        <div class="stat-item"><span class="stat-num">98%</span><span class="stat-label">Brand Satisfaction</span></div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <!-- Instagram Post Card -->
+      <div class="h-card">
+        <div class="h-card-head">
+          <div class="platform-icon ig">📸</div>
+          <div>
+            <div class="h-card-title">Instagram Post Campaign</div>
+            <div class="h-card-sub">Fashion Brand · 8 Creators</div>
+          </div>
+        </div>
+        <div class="h-card-body">
+          <div class="metric-row">
+            <div class="metric"><span class="metric-val">2.4M</span><span class="metric-key">Reach</span></div>
+            <div class="metric"><span class="metric-val">4.8%</span><span class="metric-key">Engagement</span></div>
+          </div>
+          <span class="badge badge-green">✓ Live</span>
+        </div>
+      </div>
+
+      <!-- Reels Post Card -->
+      <div class="h-card">
+        <div class="h-card-head">
+          <div class="platform-icon rl">🎬</div>
+          <div>
+            <div class="h-card-title">Reels Campaign</div>
+            <div class="h-card-sub">D2C Brand · 15 Creators</div>
+          </div>
+        </div>
+        <div class="h-card-body">
+          <div class="metric-row">
+            <div class="metric"><span class="metric-val">8.1M</span><span class="metric-key">Views</span></div>
+            <div class="metric"><span class="metric-val">₹1.2L</span><span class="metric-key">Paid Out</span></div>
+          </div>
+          <span class="badge badge-blue">In Review</span>
+        </div>
+      </div>
+
+      <!-- Analytics Card -->
+      <div class="h-card">
+        <div class="h-card-head">
+          <div class="platform-icon an">📊</div>
+          <div>
+            <div class="h-card-title">Campaign Analytics</div>
+            <div class="h-card-sub">Last 30 days</div>
+          </div>
+        </div>
+        <div class="h-card-body">
+          <div class="metric-row">
+            <div class="metric"><span class="metric-val">340%</span><span class="metric-key">ROI</span></div>
+            <div class="metric"><span class="metric-val">62K</span><span class="metric-key">Conversions</span></div>
+          </div>
+          <span class="badge badge-green">↑ 24%</span>
+        </div>
+        <div class="mini-bars">
+          <div class="mini-bar" style="height:40%"></div>
+          <div class="mini-bar" style="height:55%"></div>
+          <div class="mini-bar active" style="height:70%"></div>
+          <div class="mini-bar" style="height:50%"></div>
+          <div class="mini-bar active" style="height:85%"></div>
+          <div class="mini-bar" style="height:60%"></div>
+          <div class="mini-bar active" style="height:100%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section id="brands">
+  <div class="container">
+    <p class="brands-label">Trusted by leading brands</p>
+    <div class="brands-logos">
+      <span class="brand-name">Mamaearth</span>
+      <span class="brand-name">boAt</span>
+      <span class="brand-name">Sugar</span>
+      <span class="brand-name">Nykaa</span>
+      <span class="brand-name">Bewakoof</span>
+      <span class="brand-name">Wow Skin</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section id="what" class="section">
+  <div class="container">
+    <p class="section-label reveal">What We Do</p>
+    <h2 class="section-title reveal">Everything a brand needs<br>to scale with creators.</h2>
+    <p class="section-sub reveal">One platform. End-to-end creator marketing — from discovery to payment to analytics.</p>
+    <div class="what-grid">
+      <div class="what-card reveal">
+        <div class="what-icon">🎯</div>
+        <h3>Creator Discovery</h3>
+        <p>Find creators by niche, follower count, engagement rate, city, and language. Filter that matters.</p>
+      </div>
+      <div class="what-card reveal">
+        <div class="what-icon">📋</div>
+        <h3>Campaign Management</h3>
+        <p>Brief → Approve → Publish. Manage multiple creators and deliverables from a single dashboard.</p>
+      </div>
+      <div class="what-card reveal">
+        <div class="what-icon">💸</div>
+        <h3>Instant Payments</h3>
+        <p>Creators get paid automatically once content is approved. No delays. No manual transfers.</p>
+      </div>
+      <div class="what-card reveal">
+        <div class="what-icon">📊</div>
+        <h3>Real-time Analytics</h3>
+        <p>Track reach, engagement, conversions, and ROI across all creators in your campaign live.</p>
+      </div>
+      <div class="what-card reveal">
+        <div class="what-icon">🤝</div>
+        <h3>Brand Safety</h3>
+        <p>Content review before it goes live. Ensure your brand guidelines are always respected.</p>
+      </div>
+      <div class="what-card reveal">
+        <div class="what-icon">🔗</div>
+        <h3>Multi-Platform</h3>
+        <p>Instagram, YouTube, Reels, Shorts — manage campaigns across platforms from one place.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="section">
+  <div class="container">
+    <p class="section-label reveal">How It Works</p>
+    <h2 class="section-title reveal">From brief to results<br>in 4 simple steps.</h2>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <h4>Post a Brief</h4>
+        <p>Tell us your product, goal, budget, and target audience. Takes 5 minutes.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <h4>Match Creators</h4>
+        <p>We match your brand with the most relevant creators from our verified network.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <h4>Review Content</h4>
+        <p>Approve creator content before it goes live. Full control, zero risk.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">04</div>
+        <h4>Track & Scale</h4>
+        <p>Watch your results in real-time. Scale winning creators, pause what's not working.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="cases" class="section">
+  <div class="container">
+    <p class="section-label reveal">Case Studies</p>
+    <h2 class="section-title reveal">Real brands. Real results.</h2>
+    <p class="section-sub reveal">Numbers don't lie. See what brands have achieved on GetXH.</p>
+    <div class="cases-grid">
+      <div class="case-card reveal">
+        <p class="case-brand">Beauty Brand — Mumbai</p>
+        <p class="case-result">340% ROI</p>
+        <p class="case-desc">40 micro-creators generated ₹48L in sales from a ₹14L budget in 3 weeks.</p>
+        <div class="case-tags"><span class="tag">Instagram</span><span class="tag">Reels</span><span class="tag">Beauty</span></div>
+      </div>
+      <div class="case-card reveal">
+        <p class="case-brand">D2C Sneaker Brand</p>
+        <p class="case-result">8.4M Views</p>
+        <p class="case-desc">15 fashion creators drove 62,000 website visits and 4,800 purchases in one campaign.</p>
+        <div class="case-tags"><span class="tag">YouTube Shorts</span><span class="tag">Fashion</span></div>
+      </div>
+      <div class="case-card reveal">
+        <p class="case-brand">EdTech Startup</p>
+        <p class="case-result">₹2.1Cr Sales</p>
+        <p class="case-desc">Long-form YouTube content from 8 creators converted 12,000 course enrollments in 30 days.</p>
+        <div class="case-tags"><span class="tag">YouTube</span><span class="tag">Education</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREATORS -->
+<section id="creators" class="section">
+  <div class="container">
+    <p class="section-label reveal">Our Creators</p>
+    <h2 class="section-title reveal">12,000+ verified creators<br>across every niche.</h2>
+    <p class="section-sub reveal">Every creator is vetted for engagement quality, audience authenticity, and content standards.</p>
+    <div class="creators-grid">
+      <div class="creator-card reveal">
+        <div class="creator-avatar">👩</div>
+        <p class="creator-name">Riya Sharma</p>
+        <p class="creator-niche">Beauty & Skincare</p>
+        <div class="creator-stats">
+          <div class="c-stat"><span class="c-val">480K</span><span class="c-key">Followers</span></div>
+          <div class="c-stat"><span class="c-val">6.2%</span><span class="c-key">Engagement</span></div>
+        </div>
+      </div>
+      <div class="creator-card reveal">
+        <div class="creator-avatar">🧑</div>
+        <p class="creator-name">Arjun Mehta</p>
+        <p class="creator-niche">Tech & Gadgets</p>
+        <div class="creator-stats">
+          <div class="c-stat"><span class="c-val">1.2M</span><span class="c-key">Subscribers</span></div>
+          <div class="c-stat"><span class="c-val">4.8%</span><span class="c-key">Engagement</span></div>
+        </div>
+      </div>
+      <div class="creator-card reveal">
+        <div class="creator-avatar">👩‍🍳</div>
+        <p class="creator-name">Priya Nair</p>
+        <p class="creator-niche">Food & Lifestyle</p>
+        <div class="creator-stats">
+          <div class="c-stat"><span class="c-val">290K</span><span class="c-key">Followers</span></div>
+          <div class="c-stat"><span class="c-val">8.1%</span><span class="c-key">Engagement</span></div>
+        </div>
+      </div>
+      <div class="creator-card reveal">
+        <div class="creator-avatar">🏋️</div>
+        <p class="creator-name">Vikram Raut</p>
+        <p class="creator-niche">Fitness & Health</p>
+        <div class="creator-stats">
+          <div class="c-stat"><span class="c-val">860K</span><span class="c-key">Followers</span></div>
+          <div class="c-stat"><span class="c-val">5.5%</span><span class="c-key">Engagement</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="section">
+  <div class="container cta-inner">
+    <p class="section-label reveal">Get Started Today</p>
+    <h2 class="section-title reveal">Ready to turn content<br>into customers?</h2>
+    <p class="section-sub reveal">Join 500+ brands already growing with GetXH. Launch your first campaign in under 10 minutes.</p>
+    <div class="cta-btns reveal">
+      <button class="btn-primary">Start Your Campaign →</button>
+      <button class="btn-secondary">Book a Demo</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="#">Get<span>XH</span></a>
+        <p>India's fastest-growing creator marketing platform. Connecting brands with creators who convert.</p>
+      </div>
+      <div class="footer-col">
+        <h5>For Brands</h5>
+        <ul>
+          <li><a href="#">Start a Campaign</a></li>
+          <li><a href="#">Creator Discovery</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Case Studies</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>For Creators</h5>
+        <ul>
+          <li><a href="#">Join as Creator</a></li>
+          <li><a href="#">How to Earn</a></li>
+          <li><a href="#">Creator Guidelines</a></li>
+          <li><a href="#">Payouts</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 GetXH. All rights reserved.</p>
+      <div class="footer-socials">
+        <a class="social-btn" href="#">𝕏</a>
+        <a class="social-btn" href="#">in</a>
+        <a class="social-btn" href="#">▶</a>
+        <a class="social-btn" href="#">📷</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
